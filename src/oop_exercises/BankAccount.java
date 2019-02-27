@@ -45,6 +45,10 @@ public class BankAccount {
     }
 
     public void setName(String name) {
+        if (name.length() == 0) {
+            System.out.println("You cannot set an empty string for name.");
+            return;
+        }
         this.name = name;
     }
 
@@ -53,9 +57,9 @@ public class BankAccount {
     }
 
     public String toString() {
-        String output = "";
-        output += "Bank Account Summary for " + this.name + "\n";
-        output += String.format("Current Balance: $%.2f\n", this.balance);
+        String output = "----------\n";
+        output += "Bank Account Summary for " + getName() + "\n";
+        output += String.format("Current Balance: $%.2f\n", getBalance());
         output += String.format("Transaction History\n");
 
         int transactionCount = 0;
@@ -71,6 +75,8 @@ public class BankAccount {
         if (transactionCount == 0) {
             output += "No transactions stored.\n";
         }
+
+        output += "----------";
 
         return output;
     }

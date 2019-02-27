@@ -1,5 +1,16 @@
 package oop_exercises;
 
+/*
+ * Michael Pu
+ * Mr. Radulovic
+ * 2019/02/26
+ * ICS4U1
+ *
+ * Represents a bank account, storing the name of the account holder, balance, and last 5 valid transactions.
+ * It supports getting and setting the name of the account holder, getting the balance, withdrawing money,
+ * depositing money, as well as outputting a formatted summary of the account.
+ */
+
 public class BankAccount {
 
     private double balance;
@@ -11,10 +22,10 @@ public class BankAccount {
     }
 
     private void addTransaction(double amount) {
-        for (int i=0; i<history.length-1; i++) {
-            history[i] = history[i+1];
+        for (int i = 0; i < history.length - 1; i++) {
+            history[i] = history[i + 1];
         }
-        history[history.length-1] = amount;
+        history[history.length - 1] = amount;
     }
 
     public double getBalance() {
@@ -63,7 +74,7 @@ public class BankAccount {
         output += String.format("Transaction History\n");
 
         int transactionCount = 0;
-        for (int i=0; i<5; i++) {
+        for (int i = 0; i < 5; i++) {
             if (this.history[i] > 0) {
                 output += String.format("Deposited $%.2f\n", this.history[i]);
                 transactionCount++;

@@ -1,5 +1,16 @@
 package oop_exercises;
 
+/*
+ * Michael Pu
+ * Mr. Radulovic
+ * 2019/02/26
+ * ICS4U1
+ *
+ * Represents a single N-sided die with the ability for custom biases to be set.
+ * It supports getting and setting the number of sides, setting a custom bias, as well as rolling the die which
+ * will produce results according to the set bias. By default, the bias is set to equal distribution among all sides.
+ */
+
 public class Die {
 
     private double[] biases;

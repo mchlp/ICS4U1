@@ -1,5 +1,17 @@
 package oop_exercises;
 
+/*
+ * Michael Pu
+ * Mr. Radulovic
+ * 2019/02/26
+ * ICS4U1
+ *
+ * Represents a fraction, storing the numerator and denominator.
+ * It supports basic arithmetic operations such as addition, subtraction, multiplication, division along with
+ * setting the numerator or denominator. After each operation, the fraction is reduced to lowest terms.
+ * The toString method outputs the fraction if it is a real number or +inf, -inf, or indeterminate depending the value.
+ */
+
 public class Fraction {
 
     private int numerator;
@@ -23,10 +35,12 @@ public class Fraction {
 
     public void setNumerator(int a) {
         this.numerator = a;
+        this.reduce();
     }
 
     public void setDenominator(int b) {
         this.denominator = b;
+        this.reduce();
     }
 
     public Fraction mul(int n) {

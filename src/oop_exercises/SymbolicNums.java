@@ -53,11 +53,11 @@ public class SymbolicNums {
         fraction1 = fraction2.sub(fraction1);
         System.out.println(fraction1);
 
-        fraction1.setNumerator(3);
-        fraction1.setDenominator(4);
-        fraction2.setNumerator(2);
-        fraction2.setDenominator(3);
-        fraction1 = fraction2.sub(fraction1);
+        fraction1.setNumerator(1);
+        fraction1.setDenominator(2);
+        fraction2.setNumerator(-2);
+        fraction2.setDenominator(1);
+        fraction1 = fraction1.add(fraction2);
         System.out.println(fraction1);
     }
 

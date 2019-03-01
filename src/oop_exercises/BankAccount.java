@@ -36,8 +36,6 @@ public class BankAccount {
         if (amount > 0) {
             this.balance += amount;
             this.addTransaction(amount);
-        } else {
-            System.out.println("You cannot deposit a negative or zero amount.");
         }
     }
 
@@ -45,21 +43,11 @@ public class BankAccount {
         if (amount <= this.balance) {
             this.balance -= amount;
             this.addTransaction(-amount);
-            return this.balance;
-        } else if (amount > 0) {
-            System.out.println("Insufficient funds.");
-            return -1;
-        } else {
-            System.out.println("You cannot withdraw a negative or zero amount.");
-            return -1;
         }
+        return this.balance;
     }
 
     public void setName(String name) {
-        if (name.length() == 0) {
-            System.out.println("You cannot set an empty string for name.");
-            return;
-        }
         this.name = name;
     }
 

@@ -35,12 +35,10 @@ public class Fraction {
 
     public void setNumerator(int a) {
         this.numerator = a;
-        this.reduce();
     }
 
     public void setDenominator(int b) {
         this.denominator = b;
-        this.reduce();
     }
 
     public Fraction mul(int n) {
@@ -51,10 +49,10 @@ public class Fraction {
         return fraction;
     }
 
-    public Fraction divide(int n) {
+    public Fraction divide(int b) {
         Fraction fraction = new Fraction();
         fraction.setNumerator(this.numerator);
-        fraction.setDenominator(this.denominator * n);
+        fraction.setDenominator(this.denominator * b);
         fraction.reduce();
         return fraction;
     }

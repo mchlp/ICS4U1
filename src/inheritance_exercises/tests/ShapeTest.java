@@ -1,9 +1,7 @@
 package inheritance_exercises.tests;
 
 import inheritance_exercises.Shape;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 
 import static org.junit.Assert.*;
 

@@ -26,7 +26,7 @@ public class SearchProblem {
             if (line == null) break;
             try {
                 int v = Integer.parseInt(line);
-                if (s.fasterFind(v)) System.out.println("found");
+                if (s.findBinary(v)) System.out.println("found");
                 else System.out.println("not found");
             } catch (NumberFormatException e) {
                 System.out.println("A number please!");
@@ -38,7 +38,7 @@ public class SearchProblem {
      * @param v the value to search for
      * @return True if v appears in this, false otherwise
      */
-    private boolean find(int v) {
+    private boolean findLinear(int v) {
 
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a[0].length; j++) {
@@ -50,7 +50,7 @@ public class SearchProblem {
         return false;
     }
 
-    private boolean fasterFind(int v) {
+    private boolean findBinary(int v) {
 
         int leftColBound = 0;
         int rightColBound = a.length - 1;
@@ -92,6 +92,21 @@ public class SearchProblem {
                 }
             }
         }
+        return false;
+    }
+
+    private boolean startFindRecursive(int v) {
+        return findRecursive(v, 0, 0, dimension-1, dimension-1);
+    }
+
+    private boolean findRecursive(int v, int top, int left, int bottom, int right) {
+        if (top == bottom && left == right) {
+            return a[top][left] == v;
+        }
+
+        int middlex = (left + right) / 2;
+        int middley = (top + bottom) / 2;
+
         return false;
     }
 

@@ -1,4 +1,4 @@
-package adt_list;
+package adt;
 
 // This interface defines the actions associated with a list of integers.
 public interface ListIntADT {

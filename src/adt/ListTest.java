@@ -1,4 +1,4 @@
-package adt_list;
+package adt;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package adt_list;
+package adt;
 
 public class List implements ListIntADT {
 

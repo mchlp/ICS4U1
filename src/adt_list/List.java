@@ -1,26 +1,23 @@
 package adt_list;
 
 public class List implements ListIntADT {
-    private class Element {
-        int value;
-        Element next;
-    }
 
-    private Element first;
+    private Element firstElement;
 
     private Element getElement(int i) {
-        Element target = first;
-        while (target != null) {
-            if (i == 0) return target;
-            i--;
+        Element target = firstElement;
+        for (int c=0; c<i; c++) {
             target = target.next;
+            if (target == null) {
+                throw new IndexOutOfBoundsException();
+            }
         }
-        throw new ArrayIndexOutOfBoundsException();
+        return target;
     }
 
     @Override
     public int get(int i) {
-        return getElement(i).value
+        return getElement(i).value;
     }
 
     @Override
@@ -29,40 +26,39 @@ public class List implements ListIntADT {
         element.value = j;
 
         if (i == 0) {
-            element.next = first;
-            first = element;
+            element.next = firstElement;
+            firstElement = element;
         } else {
-            Element target = getElement(i - 1);
-
-            element.next = target.next;
-            target.next = element;
+            Element before = getElement(i - 1);
+            element.next = before.next;
+            before.next = element;
         }
     }
 
     @Override
     public void remove(int i) {
-        Element target = first;
+        Element remove = firstElement;
         Element prev = null;
-        while (target != null) {
-            if (target.value == i) {
-                prev.next = target.next;
+        while (remove != null) {
+            if (remove.value == i) {
+                prev.next = remove.next;
                 return;
             }
-            prev = target;
-            target = target.next;
+            prev = remove;
+            remove = remove.next;
         }
     }
 
     @Override
     public void removeAt(int i) {
         if (i == 0) {
-            first = first.next;
+            firstElement = firstElement.next;
         } else {
-            Element target = getElement(i - 1);
-            if (target.next == null) {
+            Element before = getElement(i - 1);
+            if (before.next == null) {
                 throw new ArrayIndexOutOfBoundsException();
             } else {
-                target.next = target.next.next;
+                before.next = before.next.next;
             }
         }
     }
@@ -76,18 +72,17 @@ public class List implements ListIntADT {
     public int size() {
         int i = 0;
 
-        Element target = first;
+        Element target = firstElement;
         while (target != null) {
             target = target.next;
-            i ++;
+            i++;
         }
-
         return i;
     }
 
     @Override
     public boolean isEmpty() {
-        return first == null;
+        return firstElement == null;
     }
 
     @Override

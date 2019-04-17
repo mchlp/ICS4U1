@@ -1,4 +1,4 @@
-package adt_list;
+package adt;
 
 public interface QueueIntADT {
 		public void enqueue(int num);	// Insert an number at the end of the queue.

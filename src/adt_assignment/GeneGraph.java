@@ -22,20 +22,29 @@ public class GeneGraph {
     }
 
     public int getFastestMutation(String startGene, String endGene) {
-        ArrayList<String> posStartingList = generatePossibleMutations(startGene);
-        HashSet<String> posEndingList = new HashSet<>();
-        posEndingList.addAll(generatePossibleMutations(endGene));
+        boolean firstGeneValid;
+        ArrayList<String> posStartingList = new ArrayList<>();
+        if (posGenes.contains(startGene)) {
+            posStartingList.add(startGene);
+            firstGeneValid = true;
+        } else {
+            posStartingList.addAll(generatePossibleMutations(startGene));
+            firstGeneValid = false;
+        }
 
         int minDis = Integer.MAX_VALUE;
         boolean reachable = false;
         for (String posStarting : posStartingList) {
-            int dis = getShortestPath(posStarting, posEndingList);
+            int dis = getShortestPath(posStarting, endGene);
             if (dis != -1) {
-                if (!reachable) {
-                    reachable = true;
-                }
-                if (dis < minDis) {
-                    minDis = dis;
+                dis += (firstGeneValid ? 0 : 1);
+                if (dis <= maxMutations) {
+                    if (!reachable) {
+                        reachable = true;
+                    }
+                    if (dis < minDis) {
+                        minDis = dis;
+                    }
                 }
             }
         }
@@ -83,7 +92,7 @@ public class GeneGraph {
         }
     }
 
-    private int getShortestPath(String startGene, HashSet<String> endGenes) {
+    private int getShortestPath(String startGene, String endGene) {
 
         ArrayDeque<String> queue = new ArrayDeque<>();
         HashMap<String, Integer> disArray = new HashMap<>();
@@ -94,7 +103,7 @@ public class GeneGraph {
         while (!queue.isEmpty()) {
             String curGene = queue.getLast();
             queue.removeLast();
-            if (endGenes.contains(curGene)) {
+            if (endGene.equals(curGene)) {
                 return disArray.get(curGene);
             } else {
                 int curDis = disArray.get(curGene);

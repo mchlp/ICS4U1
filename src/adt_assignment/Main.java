@@ -3,6 +3,12 @@ package adt_assignment;
 import java.util.HashSet;
 import java.util.Scanner;
 
+/*
+Questions
+- guaranteed that both starting and final genes are valid genes
+- constraints for L, S, M, G
+ */
+
 public class Main {
 
     public static void main(String[] args) {

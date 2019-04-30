@@ -22,6 +22,11 @@ public class GeneGraph {
     }
 
     public int getFastestMutation(String startGene, String endGene) {
+
+        if (!posGenes.contains(endGene)) {
+            return -1;
+        }
+
         boolean firstGeneValid;
         ArrayList<String> posStartingList = new ArrayList<>();
         if (posGenes.contains(startGene)) {

@@ -1,59 +1,76 @@
 package adt_assignment;
 
+import javafx.util.Pair;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class GeneGraph {
+/**
+ * Stores a graph with possible genes as the vertices and possible mutations as edges. Can calculate the fastest
+ * mutation from one gene to another.
+ */
+public class GeneGraphHash {
 
-    public static final String[] POSSIBLE_CHARS = {"A", "G", "C", "T"};
+    private static final String[] POSSIBLE_CHARS = {"A", "G", "C", "T"};
 
     private int geneLength;
     private int maxMutations;
+
     private HashSet<String> posGenes;
     private HashMap<String, ArrayList<String>> adjList;
 
-    public GeneGraph(HashSet<String> genes, int L, int M) {
+    public GeneGraphHash(HashSet<String> genes, int L, int M) {
         this.geneLength = L;
         this.maxMutations = M;
         this.posGenes = genes;
         generateGraph();
     }
 
-    public int getFastestMutation(String startGene, String endGene) {
+    public Pair<Boolean, Integer> getFastestMutation(String startGene, String endGene) {
 
-        if (!posGenes.contains(endGene)) {
-            return -1;
-        }
+	if (!posGenes.contains(endGene) {
+		return new Pair<>(false, -1);	
+	}
 
+        // if the starting gene is a valid gene
         boolean firstGeneValid;
         ArrayList<String> posStartingList = new ArrayList<>();
         if (posGenes.contains(startGene)) {
+            // if starting gene is a valid gene, set that as the starting point
             posStartingList.add(startGene);
             firstGeneValid = true;
         } else {
+            // if starting gene is not a valid gene, set all valid mutations of starting gene as starting points
+            // and add 1 to the minimum distance at the end
             posStartingList.addAll(generatePossibleMutations(startGene));
             firstGeneValid = false;
         }
 
+        // store minimum distance to ending point
         int minDis = Integer.MAX_VALUE;
+        // if the end gene is reachable from the starting gene
         boolean reachable = false;
+        // if the end gene is reachable from the starting gene within the maximum number of mutations
+        boolean reachableWithin = false;
+        // loop through starting genes
         for (String posStarting : posStartingList) {
             int dis = getShortestPath(posStarting, endGene);
             if (dis != -1) {
                 dis += (firstGeneValid ? 0 : 1);
+                if (!reachable) {
+                    reachable = true;
+                }
+                if (dis < minDis) {
+                    minDis = dis;
+                }
                 if (dis <= maxMutations) {
-                    if (!reachable) {
-                        reachable = true;
-                    }
-                    if (dis < minDis) {
-                        minDis = dis;
-                    }
+                    reachableWithin = true;
                 }
             }
         }
-        return reachable ? minDis : -1;
+        return new Pair<>(reachableWithin, reachable ? minDis : -1);
     }
 
     private String swapAdjGene(String gene, int leftIndex) {
@@ -98,7 +115,6 @@ public class GeneGraph {
     }
 
     private int getShortestPath(String startGene, String endGene) {
-
         ArrayDeque<String> queue = new ArrayDeque<>();
         HashMap<String, Integer> disArray = new HashMap<>();
 
@@ -112,12 +128,10 @@ public class GeneGraph {
                 return disArray.get(curGene);
             } else {
                 int curDis = disArray.get(curGene);
-                if (curDis < maxMutations) {
-                    for (String connection : adjList.get(curGene)) {
-                        if (!disArray.containsKey(connection)) {
-                            disArray.put(connection, curDis + 1);
-                            queue.addFirst(connection);
-                        }
+                for (String connection : adjList.get(curGene)) {
+                    if (!disArray.containsKey(connection)) {
+                        disArray.put(connection, curDis + 1);
+                        queue.addFirst(connection);
                     }
                 }
             }

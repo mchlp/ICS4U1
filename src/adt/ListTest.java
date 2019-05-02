@@ -1,8 +1,7 @@
 package adt;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ListTest {
